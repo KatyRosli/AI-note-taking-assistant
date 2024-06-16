@@ -22,22 +22,17 @@ const DeleteButton = ({ noteId }: Props) => {
   });
   return (
     <Button
-      variant={"destructive"}
+      variant="destructive"
       size="sm"
       disabled={deleteNote.isPending}
-      onClick={() => {
-        const confirm = window.confirm(
-          "Are you sure you want to delete this note?"
-        );
-        if (!confirm) return;
-        deleteNote.mutate(undefined, {
-          onSuccess: () => {
-            router.push("/dashboard");
-          },
-          onError: (err) => {
-            console.error(err);
-          },
-        });
+      onClick={async () => {
+        if (!window.confirm("Are you sure you want to delete this note?")) return;
+        try {
+          await deleteNote.mutateAsync();
+          router.push("/dashboard");
+        } catch (err) {
+          console.error(err);
+        }
       }}
     >
       <Trash />
