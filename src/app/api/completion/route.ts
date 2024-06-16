@@ -1,5 +1,6 @@
 import { OpenAIApi, Configuration } from "openai-edge";
-import { OpenAIStream, StreamingTextResponse } from "ai";
+import { StreamingTextResponse } from "ai";
+
 // /api/completion
 const config = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -33,7 +34,12 @@ export async function POST(req: Request) {
     ],
     stream: true,
   });
-  const stream = OpenAIStream(response);
-  return new StreamingTextResponse(stream);
+  // Check if the response has a body
+  if (!response.body) {
+    return new Response("No stream available", { status: 500 });
+  }
+
+  // Create a streaming response
+  return new StreamingTextResponse(response.body);
 }
 

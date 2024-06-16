@@ -9,7 +9,7 @@ import { useMutation } from "@tanstack/react-query";
 import Text from "@tiptap/extension-text";
 import axios from "axios";
 import { NoteType } from "@/lib/db/schema";
-import { useCompletion } from "ai/react";
+import { useCompletion } from "@ai-sdk/react";
 
 type Props = { note: NoteType };
 
