@@ -20,20 +20,25 @@ const DeleteButton = ({ noteId }: Props) => {
       return response.data;
     },
   });
+
+  const handleDelete = async () => {
+    // Replace window.confirm with window.alert
+    window.alert("Are you sure you want to delete this note?");
+    
+    try {
+      await deleteNote.mutateAsync();
+      router.push("/dashboard");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <Button
       variant="destructive"
       size="sm"
       disabled={deleteNote.isPending}
-      onClick={async () => {
-        if (!window.confirm("Are you sure you want to delete this note?")) return;
-        try {
-          await deleteNote.mutateAsync();
-          router.push("/dashboard");
-        } catch (err) {
-          console.error(err);
-        }
-      }}
+      onClick={handleDelete}
     >
       <Trash />
     </Button>
