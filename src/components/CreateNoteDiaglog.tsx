@@ -88,11 +88,9 @@ const CreateNoteDialog = (props: Props) => {
             <Button
               type="submit"
               className="bg-green-600"
-              disabled={createNotebook.isLoading}
+              
             >
-              {createNotebook.isLoading && (
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              )}
+              
               Create
             </Button>
           </div>
