@@ -50,7 +50,7 @@ const CreateNoteDialog = (props: Props) => {
         uploadToFirebase.mutate(note_id);
         router.push(`/notebook/${note_id}`);
       },
-      onError: (error: any) => {
+      onError: (error) => {
         console.error(error);
         window.alert("Failed to create new notebook");
       },
@@ -77,7 +77,7 @@ const CreateNoteDialog = (props: Props) => {
         <form onSubmit={handleSubmit}>
           <Input
             value={input}
-            onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setInput(e.target.value)}
+            onChange={(e) => setInput(e.target.value)}
             placeholder="Name..."
           />
           <div className="h-4"></div>
@@ -88,9 +88,11 @@ const CreateNoteDialog = (props: Props) => {
             <Button
               type="submit"
               className="bg-green-600"
-              
+              disabled={createNotebook.isPending}
             >
-              
+              {createNotebook.isPending && (
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              )}
               Create
             </Button>
           </div>
