@@ -1,7 +1,10 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
   images: {
-    domains: ["firebasestorage.googleapis.com"],
+    domains: [
+      "firebasestorage.googleapis.com",
+      //"oaidalleapiprodscus.blob.core.windows.net"
+    ],
   },
   typescript: {
     ignoreBuildErrors: true,
@@ -11,4 +14,3 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
