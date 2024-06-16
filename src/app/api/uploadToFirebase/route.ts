@@ -16,10 +16,17 @@ export async function POST(req: Request) {
     if (!notes[0].imageUrl) {
       return new NextResponse("no image url", { status: 400 });
     }
-    const firebase_url = await uploadFileToFirebase(
-      notes[0].imageUrl,
-      notes[0].name
-    );
+    // Ensure this code is only executed in the client-side context
+    let firebase_url;
+    if (typeof window !== 'undefined') {
+      firebase_url = await uploadFileToFirebase(
+        notes[0].imageUrl,
+        notes[0].name
+      );
+    } else {
+      // Handle server-side or non-browser environment logic
+      firebase_url = notes[0].imageUrl; // Placeholder for non-browser logic
+    }
     // update the note with the firebase url
     await db
       .update($notes)
