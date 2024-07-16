@@ -19,17 +19,23 @@ const DeleteButton = ({ noteId }: Props) => {
       });
       return response.data;
     },
+    onSuccess: () => {
+      router.push("/dashboard");
+    },
+    onError: (error) => {
+      console.error("Please refresh and try to delete again:", error);
+    },
   });
 
   const handleDelete = async () => {
-    // Replace window.confirm with window.alert
-    window.alert("Are you sure you want to delete this note?");
+    const confirmed = window.confirm("Are you sure you want to delete this note?");
+    if (!confirmed) return;
     
     try {
       await deleteNote.mutateAsync();
       router.push("/dashboard");
     } catch (err) {
-      console.error(err);
+      console.error("Error delete the note:", err);
     }
   };
 
