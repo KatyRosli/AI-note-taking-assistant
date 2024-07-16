@@ -3,6 +3,7 @@ module.exports = {
   images: {
     domains: [
       "firebasestorage.googleapis.com",
+      "oaidalleapiprodscus.blob.core.windows.net",
     ],
   },
   typescript: {
