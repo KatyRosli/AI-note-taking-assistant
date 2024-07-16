@@ -40,8 +40,7 @@ export default function Home() {
         <div className="mt-8"></div>
 
         <div className="flex justify-center">
-          <Link href="/sign-in">
-          {/* </Link><Link href="/dashboard"> */}
+          <Link href="/dashboard">
             <Button className="bg-sky-400">
               Get Started
               <ArrowRight className="ml-2 w-5 h-5" strokeWidth={3} />
