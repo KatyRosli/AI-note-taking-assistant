@@ -12,7 +12,7 @@ export default function Home() {
   const { isSignedIn, isLoaded } = useAuth();
   const router = useRouter();
 
-  useEffect(() => {
+  const handleGetStarted = () => {
     if (isLoaded) {
       if (isSignedIn) {
         router.push("/dashboard");
@@ -20,7 +20,7 @@ export default function Home() {
         router.push("/sign-in");
       }
     }
-  }, [isLoaded, isSignedIn, router]);
+  };
 
   if (!isLoaded) {
     return <p>Loading...</p>;
@@ -40,12 +40,10 @@ export default function Home() {
         <div className="mt-8"></div>
 
         <div className="flex justify-center">
-          <Link href="/dashboard">
-            <Button className="bg-sky-400">
+            <Button className="bg-sky-400" onClick={handleGetStarted}>
               Get Started
               <ArrowRight className="ml-2 w-5 h-5" strokeWidth={3} />
             </Button>
-          </Link>
         </div>
       </div>
     </div>
