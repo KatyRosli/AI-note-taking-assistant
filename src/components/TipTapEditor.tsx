@@ -1,10 +1,9 @@
 "use client";
-import React from "react";
+import React, { useCallback } from "react";
 import { EditorContent, useEditor } from "@tiptap/react";
 import { StarterKit } from "@tiptap/starter-kit";
 import TipTapMenuBar from "./TipTapMenuBar";
 import { Button } from "./ui/button";
-import { useDebounce } from "@/lib/useDebounce";
 import { useMutation } from "@tanstack/react-query";
 import Text from "@tiptap/extension-text";
 import axios from "axios";
@@ -19,9 +18,12 @@ const TipTapEditor = ({ note }: Props) => {
   );
   const { complete, completion } = useCompletion({
     api: "/api/completion",
+    onError: (error) => {
+      console.error("Error during completion:", error);
+    },
   });
   const saveNote = useMutation({
-    mutationFn: async () => {
+    mutationFn: async ({ noteId, editorState}: { noteId: number | undefined; editorState: string}) => {
       const response = await axios.post("/api/saveNote", {
         noteId: note.id,
         editorState,
@@ -33,8 +35,12 @@ const TipTapEditor = ({ note }: Props) => {
     addKeyboardShortcuts() {
       return {
         "Shift-a": () => {
+          console.log("Shift + A pressed");
           // take the last 30 words
-          const prompt = this.editor.getText().split(" ").slice(-30).join(" ");
+          //const prompt = this.editor.getText().split(" ").slice(-30).join(" ");
+          const cleanText = this.editor.getText().replace(/\n/g, ' ').trim();
+          const prompt = cleanText.split(" ").slice(-5).join(" ");
+          console.log("Prompt sent for completion:", prompt);
           complete(prompt);
           return true;
         },
@@ -50,20 +56,27 @@ const TipTapEditor = ({ note }: Props) => {
       setEditorState(editor.getHTML());
     },
   });
+
+  /* React.useEffect(() => {
+    if (!editor) {
+      console.error("Editor not initialized");
+    }
+  }, [editor]); */
+
   const lastCompletion = React.useRef("");
 
   React.useEffect(() => {
     if (!completion || !editor) return;
+    console.log("Completion received:", completion);
     const diff = completion.slice(lastCompletion.current.length);
     lastCompletion.current = completion;
+    console.log("Inserting diff:", diff);
     editor.commands.insertContent(diff);
   }, [completion, editor]);
 
-  const debouncedEditorState = useDebounce(editorState, 500);
-  React.useEffect(() => {
-    // save to db
-    if (debouncedEditorState === "") return;
-    saveNote.mutate(undefined, {
+  // Function to handle manual saving
+  const handleSave = useCallback(() => {
+    saveNote.mutate({ noteId: note.id, editorState }, {
       onSuccess: (data) => {
         console.log("success update!", data);
       },
@@ -71,13 +84,23 @@ const TipTapEditor = ({ note }: Props) => {
         console.error(err);
       },
     });
-  }, [debouncedEditorState, saveNote]);
+  }, [note.id, editorState, saveNote]);
+
+  // Auto-save functionality
+  React.useEffect(() => {
+    const intervalId = setInterval(() => {
+      handleSave();
+    }, 30000); // Save every 30 seconds
+
+    return () => clearInterval(intervalId); // Clear interval on unmount
+  }, [handleSave]); // Dependency array can be adjusted based on when you want to trigger saves
+
   return (
     <>
       <div className="flex">
         {editor && <TipTapMenuBar editor={editor} />}
-        <Button disabled variant={"outline"}>
-          {saveNote.isPending ? "Saving..." : "Saved"}
+        <Button onClick={handleSave} disabled={saveNote.isPending} variant={"outline"}>
+          {saveNote.isPending ? "Saving..." : "Save"}
         </Button>
       </div>
 
