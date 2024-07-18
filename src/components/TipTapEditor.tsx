@@ -16,7 +16,7 @@ const TipTapEditor = ({ note }: Props) => {
   const [editorState, setEditorState] = React.useState(
     note.editorState || `<h1>${note.name}</h1>`
   );
-  const { complete, completion } = useCompletion({
+  const { complete, completion, error } = useCompletion({
     api: "/api/completion",
     onError: (error) => {
       console.error("Error during completion:", error);
@@ -31,37 +31,15 @@ const TipTapEditor = ({ note }: Props) => {
       return response.data;
     },
   });
-  const customText = Text.extend({
-    addKeyboardShortcuts() {
-      return {
-        "Shift-a": () => {
-          console.log("Shift + A pressed");
-          // take the last 30 words
-          //const prompt = this.editor.getText().split(" ").slice(-30).join(" ");
-          const cleanText = this.editor.getText().replace(/\n/g, ' ').trim();
-          const prompt = cleanText.split(" ").slice(-5).join(" ");
-          console.log("Prompt sent for completion:", prompt);
-          complete(prompt);
-          return true;
-        },
-      };
-    },
-  });
 
   const editor = useEditor({
     autofocus: true,
-    extensions: [StarterKit, customText],
+    extensions: [StarterKit, Text],
     content: editorState,
     onUpdate: ({ editor }) => {
       setEditorState(editor.getHTML());
     },
   });
-
-  /* React.useEffect(() => {
-    if (!editor) {
-      console.error("Editor not initialized");
-    }
-  }, [editor]); */
 
   const lastCompletion = React.useRef("");
 
@@ -72,6 +50,8 @@ const TipTapEditor = ({ note }: Props) => {
     lastCompletion.current = completion;
     console.log("Inserting diff:", diff);
     editor.commands.insertContent(diff);
+
+    console.log("Auto-complete sentence:", completion);
   }, [completion, editor]);
 
   // Function to handle manual saving
@@ -95,6 +75,15 @@ const TipTapEditor = ({ note }: Props) => {
     return () => clearInterval(intervalId); // Clear interval on unmount
   }, [handleSave]); // Dependency array can be adjusted based on when you want to trigger saves
 
+  // Function to handle auto-completion
+  const handleAutoComplete = () => {
+    if (!editor) return;
+    const cleanText = editor.getText().replace(/\n/g, ' ').trim();
+    const prompt = cleanText.split(" ").slice(-30).join(" ");
+    console.log("Prompt sent for completion:", prompt);
+    complete( prompt );
+  };
+
   return (
     <>
       <div className="flex">
@@ -108,12 +97,11 @@ const TipTapEditor = ({ note }: Props) => {
         <EditorContent editor={editor} />
       </div>
       <div className="h-4"></div>
+      <Button onClick={handleAutoComplete} variant={"outline"}>
+          Submit
+        </Button>
       <span className="text-sm">
-        Tip: Press{" "}
-        <kbd className="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg">
-          Shift + A
-        </kbd>{" "}
-        for AI autocomplete
+        Tip: Use the Submit button for AI autocomplete.
       </span>
     </>
   );
