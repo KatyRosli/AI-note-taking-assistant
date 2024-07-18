@@ -34,7 +34,7 @@ const NotebookPage = async ({ params: { noteId } }: Props) => {
   const note = notes[0];
 
   return (
-    <div className="min-h-screen grainy p-8">
+    <div className="bg-gradient-to-r min-h-screen from-gray-950 via-sky-950 to-gray-950 p-8">
       <div className="max-w-4xl mx-auto">
         <div className="border shadow-xl border-stone-200 rounded-lg p-4 flex items-center">
           <Link href="/dashboard">
