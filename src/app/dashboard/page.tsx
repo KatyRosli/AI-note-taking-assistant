@@ -23,19 +23,19 @@ const DashboardPage = async (props: Props) => {
 
   return (
     <>
-      <div className="grainy min-h-screen">
+      <div className="bg-gradient-to-r min-h-screen from-gray-950 via-sky-950 to-gray-950">
         <div className="max-w-7xl mx-auto p-10">
           <div className="h-14"></div>
           <div className="flex justify-between items-center md:flex-row flex-col">
             <div className="flex items-center">
               <Link href="/">
-                <Button className="bg-green-600" size="sm">
+                <Button className="border border-gray-300 hover:border-teal-500 hover:text-teal-500" size="sm">
                   <ArrowLeft className="mr-1 w-4 h-4" />
                   Back
                 </Button>
               </Link>
               <div className="w-4"></div>
-              <h1 className="text-3xl font-bold text-gray-900">My Notes</h1>
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-teal-500 to-violet-600 bg-clip-text text-transparent">My Notes</h1>
               <div className="w-4"></div>
               <UserButton />
             </div>
@@ -48,7 +48,7 @@ const DashboardPage = async (props: Props) => {
           {/* if no notes, display this */}
           {notes.length === 0 && (
             <div className="text-center">
-              <h2 className="text-xl text-gray-500">You have no notes yet.</h2>
+              <h2 className="text-xl text-gray-300">You have no notes yet.</h2>
             </div>
           )}
 
@@ -58,7 +58,7 @@ const DashboardPage = async (props: Props) => {
             {notes.map((note) => {
               return (
                 <a href={`/notebook/${note.id}`} key={note.id}>
-                  <div className="border border-stone-300 rounded-lg overflow-hidden flex flex-col hover:shadow-xl transition hover:-translate-y-1">
+                  <div className="backdrop-blur-sm bg-white/30 rounded-lg overflow-hidden flex flex-col hover:shadow-xl transition hover:-translate-y-1">
                     <Image
                       width={400}
                       height={200}
@@ -66,11 +66,11 @@ const DashboardPage = async (props: Props) => {
                       src={note.imageUrl || ""}
                     />
                     <div className="p-4">
-                      <h3 className="text-xl font-semibold text-gray-900">
+                      <h3 className="text-xl font-semibold text-teal-500">
                         {note.name}
                       </h3>
                       <div className="h-1"></div>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-200">
                         {new Date(note.createdAt).toLocaleDateString()}
                       </p>
                     </div>
@@ -81,7 +81,6 @@ const DashboardPage = async (props: Props) => {
           </div>
           <Footer />
         </div>
-       
       </div>
     </>
   );
