@@ -1,3 +1,5 @@
+"use client";
+
 import { BsLinkedin, BsGithub, BsBehance, BsInstagram } from 'react-icons/bs';
 
 const Footer = () => {

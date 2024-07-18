@@ -48,8 +48,9 @@ export default function Home() {
             </Button>
         </div>
       </div>
+      <Footer/>
     </div>
-    <Footer/>
+    
     </>
   );
 }

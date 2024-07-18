@@ -10,6 +10,7 @@ import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import Footer from "@/components/Footer";
 
 type Props = {};
 
@@ -78,7 +79,9 @@ const DashboardPage = async (props: Props) => {
               );
             })}
           </div>
+          <Footer />
         </div>
+       
       </div>
     </>
   );
