@@ -25,5 +25,6 @@ export default function RootLayout({
         </Provider>
       </html>
     </ClerkProvider>
+    
   );
 }
