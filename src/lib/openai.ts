@@ -26,7 +26,7 @@ export async function generateImagePrompt(name: string) {
     const image_description = data.choices[0].message.content;
     return image_description as string;
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     throw error;
   }
 }

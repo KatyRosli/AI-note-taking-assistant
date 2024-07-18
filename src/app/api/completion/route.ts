@@ -11,7 +11,7 @@ const openai = new OpenAIApi(config);
 export async function POST(req: Request) {
   // extract the prompt from the body
   const { prompt, userId } = await req.json();
-  console.log("Received prompt:", prompt)
+  //console.log("Received prompt:", prompt)
 
   const response = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
@@ -35,20 +35,3 @@ export async function POST(req: Request) {
   const stream = OpenAIStream(response);
   return new StreamingTextResponse(stream);
   }
-
-  
-    /* // Check if response.body is null
-    if (response.body === null) {
-      console.error("No streaming data available");
-      return new Response("No streaming data available", { status: 500 });
-    }
-
-    // Convert the response body (string) directly into StreamingTextResponse
-    console.log('FROM OPENAI:', response.body)
-    return new StreamingTextResponse(response.body as ReadableStream<any>);
-  } catch (error) {
-    // Handle errors from OpenAI API request
-    console.error("Error processing completion request:", error);
-    return new Response("Error with OpenAI API request:", { status: 500 });
-  }
-} */

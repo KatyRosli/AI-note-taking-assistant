@@ -45,20 +45,20 @@ const TipTapEditor = ({ note }: Props) => {
 
   React.useEffect(() => {
     if (!completion || !editor) return;
-    console.log("Completion received:", completion);
+    //console.log("Completion received:", completion);
     const diff = completion.slice(lastCompletion.current.length);
     lastCompletion.current = completion;
-    console.log("Inserting diff:", diff);
+    //console.log("Inserting diff:", diff);
     editor.commands.insertContent(diff);
 
-    console.log("Auto-complete sentence:", completion);
+    //console.log("Auto-complete sentence:", completion);
   }, [completion, editor]);
 
   // Function to handle manual saving
   const handleSave = useCallback(() => {
     saveNote.mutate({ noteId: note.id, editorState }, {
       onSuccess: (data) => {
-        console.log("success update!", data);
+        //console.log("success update!", data);
       },
       onError: (err) => {
         console.error(err);
@@ -80,7 +80,7 @@ const TipTapEditor = ({ note }: Props) => {
     if (!editor) return;
     const cleanText = editor.getText().replace(/\n/g, ' ').trim();
     const prompt = cleanText.split(" ").slice(-30).join(" ");
-    console.log("Prompt sent for completion:", prompt);
+    //console.log("Prompt sent for completion:", prompt);
     complete( prompt );
   };
 
