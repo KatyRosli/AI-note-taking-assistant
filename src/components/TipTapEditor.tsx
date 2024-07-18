@@ -97,12 +97,12 @@ const TipTapEditor = ({ note }: Props) => {
         <EditorContent editor={editor} />
       </div>
       <div className="h-4"></div>
-      <Button onClick={handleAutoComplete} variant={"outline"}>
-          Submit
-        </Button>
       <span className="text-sm">
         Tip: Use the Submit button for AI autocomplete.
       </span>
+      <Button onClick={handleAutoComplete} variant={"outline"}>
+          Submit
+        </Button>
     </>
   );
 };

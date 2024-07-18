@@ -9,6 +9,7 @@ import { and, eq } from "drizzle-orm";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
+import Footer from '@/components/Footer';
 
 type Props = {
   params: {
@@ -57,6 +58,7 @@ const NotebookPage = async ({ params: { noteId } }: Props) => {
           <TipTapEditor note={note} />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
