@@ -98,7 +98,7 @@ const TipTapEditor = ({ note }: Props) => {
       </div>
       <div className="mt-16 flex justify-center items-center">
       <span className="text-sm text-center italic">
-        Tip: Click the Submit button for AI to autocomplete your sentence.
+        Tip: Click Submit AI autocomplete.
       </span>
       <Button className="bg-teal-400 text-gray-950 hover:bg-violet-500" onClick={handleAutoComplete}>
           Submit
