@@ -86,23 +86,24 @@ const TipTapEditor = ({ note }: Props) => {
 
   return (
     <>
-      <div className="flex">
+      <div className="flex justify-center">
         {editor && <TipTapMenuBar editor={editor} />}
         <Button onClick={handleSave} disabled={saveNote.isPending} variant={"outline"}>
           {saveNote.isPending ? "Saving..." : "Save"}
         </Button>
       </div>
 
-      <div className="prose prose-sm w-full mt-4">
+      <div className="prose-sm w-full mt-4 text-black">
         <EditorContent editor={editor} />
       </div>
-      <div className="h-4"></div>
-      <span className="text-sm">
+      <div className="mt-16 flex justify-center items-center">
+      <span className="text-sm text-center italic">
         Tip: Use the Submit button for AI autocomplete.
       </span>
-      <Button onClick={handleAutoComplete} variant={"outline"}>
+      <Button className="bg-teal-400 text-gray-950 hover:bg-violet-500" onClick={handleAutoComplete}>
           Submit
         </Button>
+        </div>
     </>
   );
 };

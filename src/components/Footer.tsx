@@ -1,50 +1,18 @@
-"use client";
-
-import { BsLinkedin, BsGithub, BsBehance, BsInstagram } from 'react-icons/bs';
+import { BsLinkedin, BsGithub, BsBehance, BsInstagram } from "react-icons/bs";
 
 const Footer = () => {
-    const openInNewTab = (url:string) => {
-        window.open(url, '_blank', 'noreferrer');
-    };
-
-    return (
-        <footer className='w-full bottom-0 p-4 mt-24'>
-            <div className="w-full md:flex md:w-auto">
-                <ul className="justify-between px-4 mx-auto lg:max-w-7xl md:flex md:px-16">
-                    <li className='pb-6 text-xl py-2 md:px-6 text-center border-b-2 md:border-b-0'>
-                        <button className='text-gray-400' onClick={() => {
-                            openInNewTab('https://www.linkedin.com/in/katy-rosli-761b70185/');
-                        }}>
-                            <BsLinkedin /> 
-                        </button>
-                    </li>
-                    <li className='pb-6 text-xl py-2 md:px-6 text-center border-b-2 md:border-b-0'>
-                        <button className='text-gray-400' onClick={() => {
-                            openInNewTab('https://github.com/KatyRosli');
-                        }}>
-                            <BsGithub />
-                        </button>
-                    </li>
-                    <li className='pb-6 text-xl py-2 md:px-6 text-center border-b-2 md:border-b-0'>
-                        <button className='text-gray-400' onClick={() => {
-                            openInNewTab('https://www.behance.net/KatyLii');
-                        }}>
-                            <BsBehance />
-                        </button>
-                    </li>
-                    <li className='pb-6 text-xl py-2 md:px-6 text-center border-b-2 md:border-b-0'>
-                        <button className='text-gray-400' onClick={() => {
-                            openInNewTab('https://www.instagram.com/katy.rosli/');
-                        }}>
-                            <BsInstagram />
-                        </button>
-                    </li>
-                </ul>
-            </div>
-            <div className='justify-center mx-auto lg:max-w-7xl md:items-center md:flex md:px-16'>
-                <p className='text-center text-gray-400'>© 2024 Katy Rosli</p>
-            </div>
-        </footer>
-    )
+  return (
+    <footer className="w-full bottom-0 p-4 mt-16 text-gray-400 flex justify-center">
+      <a className="flex" href="https://github.com/KatyRosli/AI-note-taking-assistant" target="_blank" rel="noopener noreferrer">
+        Open sourced on {""}
+        <div className="text-violet-500 ms-2 me-2">Github{" "}</div>
+        by
+      </a> 
+      <a href="https://www.katyrosli.com" target="_blank" rel="nopener noreferrer"className="text-violet-500 ms-2">
+        {" "}
+        Katy Rosli
+      </a>
+    </footer>
+  );
 };
 export default Footer;

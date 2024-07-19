@@ -69,7 +69,7 @@ const CreateNoteDialog = (props: Props) => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>New Note Book</DialogTitle>
+          <DialogTitle>Create New Note Book</DialogTitle>
           <DialogDescription>
             You can create a new note by clicking the button below.
           </DialogDescription>

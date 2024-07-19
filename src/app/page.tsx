@@ -28,9 +28,11 @@ export default function Home() {
   }
 
   return (
-    <div className="bg-gradient-to-r min-h-screen from-gray-950 via-sky-950 to-gray-950">
+    <div className="bg-gradient-to-r from-gray-950 via-sky-950 to-gray-950">
+      <div className="min-h-screen">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <h1 className="font-semibold text-7xl text-center bg-gradient-to-r from-teal-500 to-violet-600 bg-clip-text text-transparent">
+      <div className="h-4"></div>
+        <h1 className="mt-24 font-semibold text-7xl text-center bg-gradient-to-r from-teal-500 to-violet-600 bg-clip-text text-transparent">
           AI note taking assistant.
         </h1>
         <div className="mt-4"></div>
@@ -46,6 +48,7 @@ export default function Home() {
             </Button>
         </div>
         <Footer/>
+        </div>
       </div>
       
     </div>
